@@ -19,12 +19,6 @@ const io = new Server(server, {
     }
 });
 
-// Serve static files from the dist folder (Vite build output)
-app.use(express.static('dist'));
-app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, 'dist', 'index.html'));
-});
-
 // ✅ Health check endpoint (important for Railway/Render/etc.)
 app.get("/health", (req, res) => {
     res.status(200).json({
@@ -102,5 +96,5 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5001;
 server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
