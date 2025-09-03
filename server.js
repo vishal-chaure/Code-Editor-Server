@@ -25,6 +25,15 @@ app.get('*', (req, res) => {
     res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 
+// ✅ Health check endpoint (important for Railway/Render/etc.)
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        uptime: process.uptime(),
+        timestamp: Date.now(),
+    });
+});
+
 const userSocketMap = {};
 const roomQuestions = {};  // 🆕 cache for each room
 
